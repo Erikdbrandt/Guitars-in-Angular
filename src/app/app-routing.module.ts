@@ -3,6 +3,7 @@ import {RouterModule, Routes} from "@angular/router";
 import {LoginPage} from "./pages/login/login.page";
 import {ProfilePage} from "./pages/profile/profile.page";
 import {GuitarCataloguePage} from "./pages/guitar-catalogue/guitar-catalogue.page";
+import {AuthGuard} from "./guards/auth.guard";
 
 
 const routes: Routes = [
@@ -18,12 +19,14 @@ const routes: Routes = [
 
   {
     path: "guitars",
-    component: GuitarCataloguePage
+    component: GuitarCataloguePage,
+    canActivate: [AuthGuard]
   },
 
   {
     path: "profile",
-    component: ProfilePage
+    component: ProfilePage,
+    canActivate: [AuthGuard]
   }
 ]
 
