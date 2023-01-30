@@ -1,4 +1,9 @@
 import { Component } from '@angular/core';
+import {LoginService} from "../../services/login.service";
+import {NgForm} from "@angular/forms";
+import {User} from "../../models/user.model";
+
+
 
 @Component({
   selector: 'app-login-form',
@@ -7,4 +12,26 @@ import { Component } from '@angular/core';
 })
 export class LoginFormComponent {
 
+  // dependency injection
+
+  constructor(private readonly loginService: LoginService) {
+
+
+  }
+
+  public loginSubmit(loginForm: NgForm): void {
+
+    //username
+    const {username} = loginForm.value;
+
+    this.loginService.login(username)
+      .subscribe({
+        next: (user:User) => {
+        },
+        error: (error) => {
+
+        }
+      })
+
+  }
 }

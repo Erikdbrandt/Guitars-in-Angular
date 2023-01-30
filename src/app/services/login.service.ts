@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {map, Observable, of, switchMap} from "rxjs";
+import {map, Observable, of, switchMap, tap} from "rxjs";
 import {User} from "../models/user.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import {environment} from 'src/environments/environment';
+import {StorageUtil} from "../utils/storage.util";
+import {StorageKeys} from "../emums/storage-keys.enum";
 
 
 const {apiUsers} = environment
@@ -29,14 +31,16 @@ export class LoginService {
           }
           return of (user);
 
+        }),
+        tap((user:User) => {
+        StorageUtil.storageSave<User>(StorageKeys.User, user);
         })
       )
   }
 
-  // Login
+
 
   // check if user exists
-
   private checkUsername(username: string): Observable<User | undefined> {
     return this.http.get<User[]>(`${apiUsers}?username=${username}`)
       .pipe(
@@ -45,8 +49,7 @@ export class LoginService {
       )
   }
 
-  // IF NOT user - create user
-
+  // create user
   private createUser(username: string): Observable<User> {
   // user
 
@@ -64,12 +67,7 @@ export class LoginService {
       headers})
 
 
-    // headers -> api Key
-    // POST - Create items on the server
-
-
-
   }
 
-  // IF user - created user -> Store user
+
 }
