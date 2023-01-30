@@ -53,4 +53,8 @@ export class GuitarCatalogueService {
         }
       })
   }
+
+  public guitarById(id: string): Guitar | undefined {
+  return this._guitars.find((guitar: Guitar) => guitar.id === id);
+  }
 }

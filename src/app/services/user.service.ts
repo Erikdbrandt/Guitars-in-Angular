@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {User} from "../models/user.model";
 import {StorageUtil} from "../utils/storage.util";
 import {StorageKeys} from "../emums/storage-keys.enum";
+import {Guitar} from "../models/guitar.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,13 @@ export class UserService {
   }
   constructor() {
     this._user = StorageUtil.storageRead<User>(StorageKeys.User);
+  }
+
+  public inFavourites(guitarId: string): boolean {
+    if(this.user){
+      return  Boolean(this._user?.favourites.find((guitar: Guitar) => guitar.id === guitarId));
+    }
+    return false;
   }
 }
 
