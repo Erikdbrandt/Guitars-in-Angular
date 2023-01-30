@@ -10,6 +10,7 @@ import { GuitarCataloguePage } from './pages/guitar-catalogue/guitar-catalogue.p
 import { ProfilePage } from './pages/profile/profile.page';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { GuitarListComponent } from './components/guitar-list/guitar-list.component';
+import { GuitarListItemComponent } from './components/guitar-list-item/guitar-list-item.component';
 
 
 
@@ -21,7 +22,8 @@ import { GuitarListComponent } from './components/guitar-list/guitar-list.compon
     GuitarCataloguePage,
     ProfilePage,
     LoginFormComponent,
-    GuitarListComponent
+    GuitarListComponent,
+    GuitarListItemComponent
   ],
   imports: [ //modules
     BrowserModule,
