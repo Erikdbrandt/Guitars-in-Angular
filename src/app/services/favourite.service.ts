@@ -48,7 +48,9 @@ export class FavouriteService {
     }
 
     if (this.userService.inFavourites(guitarId)) {
-      throw new Error("addToFavourites: guitar already in favourites")
+      this.userService.removeFromFavourites(guitarId);
+    } else {
+      this.userService.addToFavourites(guitar);
     }
 
     const headers = new HttpHeaders({
@@ -58,7 +60,7 @@ export class FavouriteService {
 
     this._loading = true;
     return this.http.patch<User>(`${apiUsers}/${user.id}`, {
-      favourites: [...user.favourites, guitar]
+      favourites: [...user.favourites] // already updated
     }, {
       headers
     }).pipe(

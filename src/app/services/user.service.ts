@@ -24,10 +24,22 @@ export class UserService {
   }
 
   public inFavourites(guitarId: string): boolean {
-    if(this.user){
+    if(this._user){
       return  Boolean(this._user?.favourites.find((guitar: Guitar) => guitar.id === guitarId));
     }
     return false;
+  }
+
+  public addToFavourites(guitar: Guitar): void {
+    if(this._user){
+      this._user.favourites.push(guitar);
+    }
+  }
+
+  public removeFromFavourites(guitarId: string): void {
+    if(this._user){
+      this._user.favourites = this._user.favourites.filter((guitar: Guitar) => guitar.id !== guitarId);
+    }
   }
 }
 
