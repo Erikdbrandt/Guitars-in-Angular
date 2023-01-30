@@ -8,6 +8,11 @@ import {GuitarCataloguePage} from "./pages/guitar-catalogue/guitar-catalogue.pag
 const routes: Routes = [
   {
     path: "",
+    pathMatch: "full",
+    redirectTo: "/login"
+  },
+  {
+    path: "login",
     component: LoginPage
   },
 
