@@ -5,7 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {Guitar} from "../models/guitar.model";
 import {User} from "../models/user.model";
-import {finalize, Observable, tap} from "rxjs";
+import {Observable, tap} from "rxjs";
 
 const {apiKey, apiUsers} = environment;
 
@@ -14,11 +14,6 @@ const {apiKey, apiUsers} = environment;
 })
 export class FavouriteService {
 
-  private _loading: boolean = false;
-
-  get loading(): boolean {
-    return this._loading;
-  }
 
 
   constructor(
@@ -58,7 +53,7 @@ export class FavouriteService {
       'x-api-key': apiKey
     })
 
-    this._loading = true;
+
     return this.http.patch<User>(`${apiUsers}/${user.id}`, {
       favourites: [...user.favourites] // already updated
     }, {
@@ -66,9 +61,6 @@ export class FavouriteService {
     }).pipe(
       tap((updatedUser: User) => {
         this.userService.user = updatedUser;
-      }),
-      finalize(() => {
-        this._loading = false;
       })
     )
   }

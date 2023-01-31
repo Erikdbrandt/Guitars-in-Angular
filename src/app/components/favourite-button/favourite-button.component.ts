@@ -12,13 +12,12 @@ import {UserService} from "../../services/user.service";
 export class FavouriteButtonComponent implements OnInit{
 
 
+  public loading: boolean = false;
+
   public isFavourite: boolean = false;
 
   @Input() guitarId: string = "";
 
-  get loading(): boolean {
-    return this.favouriteService.loading;
-  }
 
 
 
@@ -34,9 +33,12 @@ export class FavouriteButtonComponent implements OnInit{
 
   onFavouriteClick(): void {
 
+    this.loading = true;
+
     this.favouriteService.addToFavourites(this.guitarId)
       .subscribe({
         next: (response:User) => {
+          this.loading = false;
          this.isFavourite = this.userService.inFavourites(this.guitarId)
         },
         error: (error: HttpErrorResponse) => {

@@ -37,6 +37,10 @@ export class GuitarCatalogueService {
 
 
   public findAllGuitars(): void {
+    if(this._guitars.length > 0 || this._loading) {
+      return;
+    }
+
     this._loading = true;
     this.http.get<Guitar[]>(apiGuitars)
       .pipe(
